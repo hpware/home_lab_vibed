@@ -34,7 +34,6 @@ jobs:
         id: meta
         uses: docker/metadata-action@v5
         with:
-          context: ./se106_pro_switch_node_exporter/
           images: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}
           tags: |
             type=raw,value=latest
@@ -49,7 +48,7 @@ jobs:
       - name: Build and push Docker image
         uses: docker/build-push-action@v5
         with:
-          context: .
+          context: ./se106_pro_switch_node_exporter/
           push: true
           tags: ${{ steps.meta.outputs.tags }}
           labels: ${{ steps.meta.outputs.labels }}
