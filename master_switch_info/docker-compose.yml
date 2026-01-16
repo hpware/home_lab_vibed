@@ -1,0 +1,27 @@
+version: '3.8'
+
+services:
+  switch-exporter:
+    build: .
+    container_name: switch-exporter
+    restart: unless-stopped
+    environment:
+      - SWITCH_IP=${SWITCH_IP}
+      - SWITCH_USER=${SWITCH_USER}
+      - SWITCH_PASSWORD=${SWITCH_PASSWORD}
+      - METRICS_PORT=9090
+      - SCRAPE_INTERVAL=${SCRAPE_INTERVAL:-60000}
+    ports:
+      - "9090:9090"
+    networks:
+      - monitoring
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:9090/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 40s
+
+networks:
+  monitoring:
+    driver: bridge
