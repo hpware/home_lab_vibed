@@ -16,10 +16,6 @@ export class MetricsServer {
 
   constructor(port: number) {
     this.port = port;
-
-    // Enable default metrics (CPU, memory, etc.)
-    //collectDefaultMetrics({ prefix: "switch_exporter_" });
-
     // Port metrics
     this.portConnectionStatus = new Gauge({
       name: "switch_port_connection_status",
